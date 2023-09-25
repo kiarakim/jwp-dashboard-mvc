@@ -11,6 +11,8 @@ import java.util.Map;
 
 public class JsonView implements View {
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public void render(final Map<String, ?> model, final HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -19,7 +21,6 @@ public class JsonView implements View {
             model.values().forEach(it -> writer.write(it.toString()));
             return;
         }
-        ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(model);
         writer.write(json);
     }
